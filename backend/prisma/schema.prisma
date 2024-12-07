@@ -1,0 +1,38 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Market {
+  id          String   @id
+  question    String
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  volume      Float    @default(0)
+  probability Float    @default(0)
+  trades      Trade[]
+  snapshots   MarketSnapshot[]
+}
+
+model Trade {
+  id        String   @id
+  marketId  String
+  market    Market   @relation(fields: [marketId], references: [id])
+  price     Float
+  amount    Float
+  timestamp DateTime @default(now())
+}
+
+model MarketSnapshot {
+  id          String   @id @default(cuid())
+  marketId    String
+  market      Market   @relation(fields: [marketId], references: [id])
+  probability Float
+  volume      Float
+  timestamp   DateTime @default(now())
+}
