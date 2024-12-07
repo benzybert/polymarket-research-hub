@@ -1,0 +1,15 @@
+{
+  "name": "polymarket-research-hub",
+  "version": "1.0.0",
+  "description": "A public research and analytics platform for Polymarket",
+  "scripts": {
+    "dev": "npm run dev --workspaces",
+    "build": "npm run build --workspaces",
+    "start": "npm run start --workspaces"
+  },
+  "workspaces": [
+    "backend",
+    "frontend"
+  ],
+  "private": true
+}
